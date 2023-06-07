@@ -9,7 +9,7 @@ Pygame library
 Clone the repository:
 
 ```
-git clone https://github.com/tekila101/TIPE-INDUCTIVE-LOOP-PROJECT.git
+clone https://github.com/Faycalraghibi/La-Detection-par-boucle-inductive.git
 ```
 Install the required dependencies. Open a terminal and run the following command:
 
