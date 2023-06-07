@@ -21,7 +21,7 @@ Open a terminal and navigate to the project directory.
 
 Run the following command to start the simulation:
 ```
-python parking_system.py
+main.py
 ```
 The simulation will open in a new window. Use the following controls to interact with the system:
 ```
