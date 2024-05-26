@@ -1,75 +1,95 @@
 import pygame
 import math
 import sys
-from utils import blit_rotate_center
+from utils import *
+import os
 
 pygame.init()
-pygame.font.init()
-pygame.display.set_caption("Parking system!")
-# Calls ---------------------------------------------------------------------------------------------------------------------------------------------------------------
-GRASS = pygame.image.load(r"\\images\\grass.jpg")
-TRACK = pygame.image.load(r"\\images\\track.png")
+base_dir = "F:\\La-Detection-par-boucle-inductive-main\\images\\"
+def load_image(file_name):
+    file_path = os.path.join(base_dir, file_name)
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(f"No such file or directory: '{file_path}'")
+    return pygame.image.load(file_path)
 
-TRACK_BORDER = pygame.image.load(r"\\images\\track-border.png")
+# Calls ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+GRASS = load_image('grass.jpg')
+TRACK = load_image('track.png')
+
+TRACK_BORDER = load_image('track-border.png')
 TRACK_BORDER_MASK = pygame.mask.from_surface(TRACK_BORDER)
 BACKGROUND_COLOR = (255, 255, 255)
 
-ANTI_COLLISION_BAR = pygame.image.load(r"\\images\\anticollisionbar.png")
+ANTI_COLLISION_BAR = load_image('anticollisionbar.png')
 BAR_POSITION = (289.09, 875.26)
 
+WHITE_CAR = load_image('white_car.png')
+GREEN_CAR = load_image('green_car.png')
+RED_CAR = load_image('red_car.png')
+TAXI = load_image('taxi.png')
+RED_BUS = load_image('red_bus.png')
+GREEN_TRACK = load_image('green_track.png')
+WHITE_TRACK = load_image('white_track.png')
+GREEN_BUS = load_image('green_bus.png')
+BLUE_CAR = load_image('blue_car.png')
+YELLOW_CAR = load_image('yellow_car.png')
 
-WHITE_CAR = pygame.image.load(r"\\images\\white_car.png")
-GREEN_CAR = pygame.image.load(r"\\images\\green_car.png")
-RED_CAR = pygame.image.load(r"\\images\\red_car.png")
-TAXI = pygame.image.load(r"\\images\\taxi.png")
-RED_BUS = pygame.image.load(r"\\images\\red_bus.png")
-GREEN_TRACK = pygame.image.load(r"\\images\\green_track.png")
-WHITE_TRACK = pygame.image.load(r"\\images\\white_track.png")
-GREEN_BUS = pygame.image.load(r"\\images\\green_bus.png")
-BLUE_CAR = pygame.image.load(r"\\images\\blue_car.png")
-YELLOW_CAR = pygame.image.load(r"\\images\\yellow_car.png")
+WHITE_CAR_RIGHT = load_image('white_car_right.png')
+GREEN_CAR_RIGHT = load_image('green_car_right.png')
+RED_CAR_RIGHT = load_image('red_car_right.png')
+TAXI_RIGHT = load_image('taxi_right.png')
+RED_BUS_RIGHT = load_image('red_bus_right.png')
+GREEN_TRACK_RIGHT = load_image('green_track_right.png')
+WHITE_TRACK_RIGHT = load_image('white_track_right.png')
+GREEN_BUS_RIGHT = load_image('green_bus_right.png')
+BLUE_CAR_RIGHT = load_image('blue_car_right.png')
+YELLOW_CAR_RIGHT = load_image('yellow_car_right.png')
 
-WHITE_CAR_RIGHT = pygame.image.load(r"\\images\\white_car_right.png")
-GREEN_CAR_RIGHT = pygame.image.load(r"\\images\\green_car_right.png")
-RED_CAR_RIGHT = pygame.image.load(r"\\images\\red_car_right.png")
-TAXI_RIGHT = pygame.image.load(r"\\images\\taxi_right.png")
-RED_BUS_RIGHT = pygame.image.load(r"\\images\\red_bus_right.png")
-GREEN_TRACK_RIGHT = pygame.image.load(r"\\images\\green_track_right.png")
-WHITE_TRACK_RIGHT = pygame.image.load(r"\\images\\white_track_right.png")
-GREEN_BUS_RIGHT = pygame.image.load(r"\\images\\green_bus_right.png")
-BLUE_CAR_RIGHT = pygame.image.load(r"\\images\\blue_car_right.png")
-YELLOW_CAR_RIGHT = pygame.image.load(r"\\images\\yellow_car_right.png")
+WHITE_CAR_LEFT = load_image('white_car_left.png')
+GREEN_CAR_LEFT = load_image('green_car_left.png')
+RED_CAR_LEFT = load_image('red_car_left.png')
+TAXI_LEFT = load_image('taxi_left.png')
+RED_BUS_LEFT = load_image('red_bus_left.png')
+GREEN_TRACK_LEFT = load_image('green_track_left.png')
+WHITE_TRACK_LEFT = load_image('white_track_left.png')
+GREEN_BUS_LEFT = load_image('green_bus_left.png')
+BLUE_CAR_LEFT = load_image('blue_car_left.png')
+YELLOW_CAR_LEFT = load_image('yellow_car_left.png')
 
-WHITE_CAR_LEFT = pygame.image.load(r"\\images\\white_car_left.png")
-GREEN_CAR_LEFT = pygame.image.load(r"\\images\\green_car_left.png")
-RED_CAR_LEFT = pygame.image.load(r"\\images\\red_car_left.png")
-TAXI_LEFT = pygame.image.load(r"\\images\\taxi_left.png")
-RED_BUS_LEFT = pygame.image.load(r"\\images\\red_bus_left.png")
-GREEN_TRACK_LEFT = pygame.image.load(r"\\images\\green_track_left.png")
-WHITE_TRACK_LEFT = pygame.image.load(r"\\images\\white_track_left.png")
-GREEN_BUS_LEFT = pygame.image.load(r"\\images\\green_bus_left.png")
-BLUE_CAR_LEFT = pygame.image.load(r"\\images\\blue_car_left.png")
-YELLOW_CAR_LEFT = pygame.image.load(r"\\images\\yellow_car_left.png")
-
-MAGLOOP = pygame.image.load(r"\\images\\magloop.png")
+MAGLOOP = load_image('magloop.png')
 MAGWIDTH, MAGHEIGHT = MAGLOOP.get_width(), MAGLOOP.get_height()
 MAGLOOP_MASK = pygame.mask.from_surface(MAGLOOP)
 
 WIDTH, HEIGHT = TRACK.get_width(), TRACK.get_height()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 
-RECTANGLEGREEN = pygame.image.load(r"\\images\\rectanglegreen.png")
-RECTANGLERED = pygame.image.load(r"\\images\\rectanglered.png")
+RECTANGLEGREEN = load_image('rectanglegreen.png')
+RECTANGLERED = load_image('rectanglered.png')
 
-x , y = 87.95 , 87.95
+# Game vars
+x, y = 87.95, 87.95
 initialVel = 10
 rotationalVel = 7
 FPS = 60
 clock = pygame.time.Clock()
 
-slotCoord = [(226.64, 190.79), (226.64, 304.79), (226.64, 416.79), (226.64, 525.79), (226.64, 640.79), (226.64, 752.79), (697.64, 190.79), (697.64, 304.79), (697.64, 416.79), (697.64, 525.79)]
-commandCorrdA = [((1137.9965, 392.0456), 'A 01'), ((1137.9965, 455.204899), 'A 02'), ((1137.9965, 521.3642), 'A 03'), ((1137.9965, 597.5235), 'A 04'), ((1137.9965, 669.6828), 'A 05'), ((1137.9965, 742.84210), 'A 06')]
-commandCorrdB = [((1334.7007, 392.0456), 'B 01'), ((1334.7007, 455.204899), 'B 02'), ((1334.7007, 521.3642), 'B 03'), ((1334.7007, 597.5235), 'B 04')]
+slotCoord = [
+    (226.64, 190.79), (226.64, 304.79), (226.64, 416.79), 
+    (226.64, 525.79), (226.64, 640.79), (226.64, 752.79), 
+    (697.64, 190.79), (697.64, 304.79), (697.64, 416.79), 
+    (697.64, 525.79)
+]
+
+commandCorrdA = [
+    ((1137.9965, 392.0456), 'A 01'), ((1137.9965, 455.204899), 'A 02'), 
+    ((1137.9965, 521.3642), 'A 03'), ((1137.9965, 597.5235), 'A 04'), 
+    ((1137.9965, 669.6828), 'A 05'), ((1137.9965, 742.84210), 'A 06')
+]
+
+commandCorrdB = [
+    ((1334.7007, 392.0456), 'B 01'), ((1334.7007, 455.204899), 'B 02'), 
+    ((1334.7007, 521.3642), 'B 03'), ((1334.7007, 597.5235), 'B 04')
+]
 
 # Definitions ----------------------------------------------------------------------------------------------------------------------------------------------------------
 class ControlPanel:
